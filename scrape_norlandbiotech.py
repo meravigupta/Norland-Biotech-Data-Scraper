@@ -35,8 +35,12 @@ sia = SentimentIntensityAnalyzer()
 
 # Function to extract categories from text
 def extract_categories(text):
-    categories = ["food colorant", "cosmetic additive", "dietary supplement", "health food"]
-    return [cat for cat in categories if cat in text.lower()]
+    categories = ["food colorant", "cosmetic additive", "dietary supplement", "health food", "algae", "antioxidant", "minerals"]
+    # Tokenize the text into words
+    words = re.findall(r'\b\w+\b', text.lower())
+    # Check if any of the words match any of the categories
+    matched_categories = [cat for cat in categories if any(cat_word in words for cat_word in cat.split())]
+    return matched_categories
 
 # Function to extract keywords from text using CountVectorizer
 def extract_keywords(text):
